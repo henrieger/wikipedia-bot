@@ -40,6 +40,13 @@ elif sys.argv[1] == 'api_query':
     if response.status_code == 200:
         print(response.json())
 
+# Test query sanitization
+elif sys.argv[1] == 'sanitize':
+    # link = input("Type any Wikipedia link: ")
+    # response = wiki.api_query(link)
+    # if response.status_code == 200:
+    print(wiki.sanitize_response(wiki.api_query('https://en.wikipedia.org/wiki/En_passant'), format=None))
+
 # Default error message
 else:
     sys.stderr.write("Error: Invalid test type. Type './test.py help' for a list of valid uses.\n")
