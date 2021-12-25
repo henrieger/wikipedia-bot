@@ -18,7 +18,7 @@ def is_wiki_article(link: str):
     return if_matches
 
 # Return API query link based on base Wiki link
-def api_link(link):
+def api_link(link: str):
     if is_wiki_article(link):
         domain = link.split('/wiki/')[0]
         title = link.split('/wiki/')[1]
@@ -27,7 +27,8 @@ def api_link(link):
     return ''
 
 # Return API query
-def api_query(link):
+def api_query(link: str):
     api_request = api_link(link)
     if api_request != '':
         return requests.get(api_request)
+
