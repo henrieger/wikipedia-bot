@@ -14,6 +14,11 @@ if len(sys.argv) < 2 or sys.argv[1] == 'help' or sys.argv[1] == '--help' or sys.
     print('Options:')
     print("\t* 'help': Show this help message and exit.")
     # Other use cases messages
+    print("\t* 'check_link': Test for checking if given string is a valid Wikipedia URL.")
+    print("\t* 'api_link': Test for checking generation of Wikipedia API strings given a valid Wikipedia URL.")
+    print("\t* 'api_query': Test for retrieving information of Wikipedia page based on valid Wikipedia URL.")
+    print("\t* 'format': Test for formatting query response of Wikipedia page based on Wikipedia URL.")
+
 
 # ---------------------------
 # Actual switch for use cases
