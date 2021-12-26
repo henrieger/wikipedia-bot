@@ -30,15 +30,22 @@ class FilterWikipedia(MessageFilter):
 def start(update: Update, context: CallbackContext) -> None:
     # Send a message when the command /start is issued.
     user = update.effective_user
-    update.message.reply_markdown_v2(
-        fr'Hi {user.mention_markdown_v2()}\!',
-        reply_markup=ForceReply(selective=True),
-    )
+    update.message.reply_html(
+        fr"""Hi, {user.mention_html()}!
+
+I'm the Wikipedia Bot. Send me a message with a link to a Wikipedia article and I'll give you the first paragraph of the article. You can also add me to a group and I'll answer any message like that in there too.
+
+<i>This bot was made by @henrieger. You can find the source code <a href="https://github.com/henrieger/wikipedia-bot">here</a>.</i>""",
+    disable_web_page_preview=True, quote=False)
 
 
 def help_command(update: Update, context: CallbackContext) -> None:
     # Send a message when the command /help is issued.
-    update.message.reply_text('Help!')
+    update.message.reply_text(f"""To use this bot, simply send a message in a group where I am with a link to a Wikipedia article and I'll reply with the first paragraph of the article.
+
+Other useful commands are:
+    /start - Give a start message with relevant info of the bot.
+    /help - Reply with a message of how to use the bot.""", quote=False)
 
 def reply_with_resume(update: Update, context: CallbackContext) -> None:
     bot_message = '\n<i>Beep boop, I\'m a bot. You can find my source code <a href="https://github.com/henrieger/wikipedia-bot">here</a>.</i>'
