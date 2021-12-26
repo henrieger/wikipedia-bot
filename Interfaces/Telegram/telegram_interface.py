@@ -2,14 +2,22 @@
 
 # BASED ON BOT FOUND IN https://github.com/python-telegram-bot/python-telegram-bot/blob/master/examples/echobot.py
 
-import sys
-sys.path.append('/home/user/Git-Projects/wikipedia-bot/')
-
 import logging
 import os
+import sys
+import inspect
+
+currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+interfacesdir = os.path.dirname(currentdir)
+maindir = os.path.dirname(interfacesdir)
+
+sys.path.insert(0, interfacesdir)
+import bot_messages
+
+sys.path.insert(0, maindir) 
 import wiki
 
-from telegram import Update, ForceReply
+from telegram import Update
 from telegram.ext import Updater, CommandHandler, MessageHandler, MessageFilter, CallbackContext
 from dotenv import load_dotenv
 
@@ -31,21 +39,15 @@ def start(update: Update, context: CallbackContext) -> None:
     # Send a message when the command /start is issued.
     user = update.effective_user
     update.message.reply_html(
-        fr"""Hi, {user.mention_html()}!
-
-I'm the Wikipedia Bot. Send me a message with a link to a Wikipedia article and I'll give you the first paragraph of the article. You can also add me to a group and I'll answer any message like that in there too.
-
-<i>This bot was made by @henrieger. You can find the source code <a href="https://github.com/henrieger/wikipedia-bot">here</a>.</i>""",
+        fr"""Hi, {user.mention_html()}
+        
+{bot_messages.start_html}""",
     disable_web_page_preview=True, quote=False)
 
 
 def help_command(update: Update, context: CallbackContext) -> None:
     # Send a message when the command /help is issued.
-    update.message.reply_text(f"""To use this bot, simply send a message in a group where I am with a link to a Wikipedia article and I'll reply with the first paragraph of the article.
-
-Other useful commands are:
-    /start - Give a start message with relevant info of the bot.
-    /help - Reply with a message of how to use the bot.""", quote=False)
+    update.message.reply_text(bot_messages.help_text, quote=False)
 
 def reply_with_resume(update: Update, context: CallbackContext) -> None:
     bot_message = '\n<i>Beep boop, I\'m a bot. You can find my source code <a href="https://github.com/henrieger/wikipedia-bot">here</a>.</i>'
