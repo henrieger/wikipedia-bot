@@ -11,7 +11,7 @@ def resume(article_link: str):
 # Check if link is a Wiki article
 def is_wiki_article(link: str):
     # Define all possible regexes
-    wikipedia = re.compile("^(https://)?[a-z]{2}\.wikipedia.org\/wiki\/.+$")
+    wikipedia = re.compile("^(https\://)?[a-z]{2}(\.m)?\.wikipedia\.org\/wiki\/.+$")
 
     # Switch through all possible regexes
     if_matches = False
@@ -19,6 +19,19 @@ def is_wiki_article(link: str):
         if_matches = True
 
     return if_matches
+
+# Check if string contains a Wiki article
+def has_wiki_article(message: str):
+    for word in message.split(' '):
+        if is_wiki_article(word):
+            return True
+    return False
+
+# Get the first Wiki article in a string
+def get_wiki_article(message: str):
+    for word in message.split(' '):
+        if is_wiki_article(word):
+            return word
 
 # Return API query link based on base Wiki link
 def api_link(link: str):

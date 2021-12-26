@@ -15,6 +15,8 @@ if len(sys.argv) < 2 or sys.argv[1] == 'help' or sys.argv[1] == '--help' or sys.
     print("\t* 'help': Show this help message and exit.")
     # Other use cases messages
     print("\t* 'check_link': Test for checking if given string is a valid Wikipedia URL.")
+    print("\t* 'has_link': Test for checking if given string has a valid Wikipedia URL.")
+    print("\t* 'get_link': Test for retrieving a Wikipedia URL from a string.")
     print("\t* 'api_link': Test for checking generation of Wikipedia API strings given a valid Wikipedia URL.")
     print("\t* 'api_query': Test for retrieving information of Wikipedia page based on valid Wikipedia URL.")
     print("\t* 'format': Test for formatting query response of Wikipedia page based on Wikipedia URL.")
@@ -31,6 +33,19 @@ elif sys.argv[1] == 'check_link':
     if not wiki.is_wiki_article(link):
         in_between = ' not*'
     print(f"The link *is{in_between} a Wiki article")
+
+# Test if string has a Wiki article 
+elif sys.argv[1] == 'has_link':
+    text = input("Type any text: ")
+    in_between = ''
+    if not wiki.has_wiki_article(text):
+        in_between = ' *not*'
+    print(f"The text does{in_between} have a Wiki article")
+
+# Test retrieving Wiki article from text
+elif sys.argv[1] == 'get_link':
+    text = input("Type any text: ")
+    print(wiki.get_wiki_article(text))
 
 # Test API link generation
 elif sys.argv[1] == 'api_link':
