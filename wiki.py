@@ -1,5 +1,6 @@
 import re
 import requests
+import format
 from requests.models import Response
 from bs4 import BeautifulSoup
 
@@ -34,7 +35,7 @@ def api_query(link: str):
         return requests.get(api_request)
 
 # Get only what matters in response
-def sanitize_response(response: Response, format='HTML'):
+def format_response(response: Response, type='text', domain=''):
     if response.status_code == 200:
         # Get query contents
         query = response.json()['parse']
@@ -44,20 +45,21 @@ def sanitize_response(response: Response, format='HTML'):
         # Isolate first paragraph   
         content = BeautifulSoup(content_html, 'html.parser')
         first_p = str(content.find_all('p', attrs={'class': None})[0])
-        first_p = re.sub(r'<\/?p>', '', first_p)
 
-        # Format tags
-        if format == 'HTML' or format == 'html':
-            pass
-        elif format == None or format == '':
-            first_p = re.sub(r'<\/?b>', '', first_p)
-            first_p = re.sub(r'<\/?i>', '', first_p)
-            first_p = re.sub(r'<\/?small>', '', first_p)
-            first_p = re.sub(r'\<sup .*?\>.*?\<\/sup\>', '', first_p)
-            first_p = re.sub(r'\<\/?s?p?an?.*?\>', '', first_p)
-            first_p = re.sub(r'\<\/?dfn.*?\>', '', first_p)
-        elif format == 'Markdown' or format == 'markdown':
-            pass
+        # Change all instances of href to valid ones
+        for href in re.findall(r'href\=\".+?\"[\ \>]', first_p):
+            new_href = f"""href="{domain}{href.split('"')[1]}" """
+            first_p = first_p.replace(href, new_href)
 
-        return first_p
+        # Format contents to specified type
+        if type.lower() == 'html':
+            return format.to_html(title, first_p)
+        elif type.lower() == 'text':
+            return format.to_text(title, first_p)
+        elif type.lower() == 'markdown':
+            return format.to_markdown(title, first_p)
+        else:
+            return f"<h3>{title}</h3>{first_p}"
+
+    return None
     

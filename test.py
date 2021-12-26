@@ -2,7 +2,6 @@
 import wiki
 
 import sys
-import requests
 
 if len(sys.argv) > 2:
     sys.stderr.write("Error: test.py takes exactly one argument.\n")
@@ -40,12 +39,21 @@ elif sys.argv[1] == 'api_query':
     if response.status_code == 200:
         print(response.json())
 
-# Test query sanitization
-elif sys.argv[1] == 'sanitize':
-    # link = input("Type any Wikipedia link: ")
-    # response = wiki.api_query(link)
-    # if response.status_code == 200:
-    print(wiki.sanitize_response(wiki.api_query('https://en.wikipedia.org/wiki/En_passant'), format=None))
+# Test query format
+elif sys.argv[1] == 'format':
+    link = input("Type any Wikipedia link: ")
+    domain = link.split('/wiki/')[0]
+
+    type = input("Type output format type: ")
+
+    output = input("Type an output file name: ")
+
+    if output != '' and output != None:
+        file = open(output, "w")
+        file.write(wiki.format_response(wiki.api_query(link), type=type, domain=domain))
+        file.close()
+    else:
+        print(wiki.format_response(wiki.api_query(link), type=type, domain=domain))
 
 # Default error message
 else:
