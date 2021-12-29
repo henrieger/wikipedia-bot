@@ -11,4 +11,4 @@ Other useful commands are:
 im_a_bot_html = '\n<i>Beep boop, I\'m a bot. You can find my source code <a href="https://github.com/henrieger/wikipedia-bot">here</a>.</i>'
 
 def link_html(link: str):
-    return f"You can read the full article in: {link}" 
+    return f"You can read the full article in: {link}." 
