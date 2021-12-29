@@ -114,7 +114,6 @@ def is_disambiguation(page_id: int, lang='en') -> bool:
 
     page_info = api_response['query']['pages'][str(page_id)]
     if 'pageprops' in page_info:
-        print('disambiguation' in page_info['pageprops'])
         return 'disambiguation' in page_info['pageprops']
     return False
 
