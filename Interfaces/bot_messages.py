@@ -7,3 +7,6 @@ help_text = """To use this bot, simply send a message in a group where I am with
 Other useful commands are:
     /start - Give a start message with relevant info of the bot.
     /help - Reply with a message of how to use the bot."""
+
+def link_html(link: str):
+    return f"You can read the full article in: {link}" 

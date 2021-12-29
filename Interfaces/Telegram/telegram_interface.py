@@ -4,6 +4,7 @@
 
 import logging
 import os
+import re
 import sys
 import inspect
 
@@ -56,6 +57,30 @@ def reply_with_resume(update: Update, context: CallbackContext) -> None:
     update.message.reply_html(wiki.format_response(wiki_content, type='html', domain=wiki_link)+bot_message,
     disable_web_page_preview=True)
 
+def search(update: Update, context: CallbackContext) -> None:
+    message_text = update.message.text
+
+    # Get first language in message and delete all occurencies
+    languages = re.findall(r'lang=[a-z]{2}', message_text)
+    if languages != []:
+        lang = languages[0].split('lang=')[1]
+    else:
+        lang = update.effective_user.language_code.split('-')[0]
+    for language in languages:
+        message_text = message_text.replace(language, '')
+
+    # Get content based on pageid search result
+    wiki_id = wiki.search_result(message_text.replace('/search ', ''), lang=lang)
+    wiki_content = wiki.api_query_id(wiki_id, lang=lang)
+
+    # Generate final message
+    final_message = wiki.format_response(wiki_content, type='html', domain=lang+'.wikipedia.org')
+    link_html = bot_messages.link_html(wiki.link_by_id(wiki_id, lang=lang))
+    if link_html != '':
+        final_message += '\n'+link_html
+
+    update.message.reply_html(final_message, disable_web_page_preview=True)
+
 def main() -> None:
     # Start the bot
 
@@ -73,6 +98,7 @@ def main() -> None:
     # on different commands - answer in Telegram
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(CommandHandler("help", help_command))
+    dispatcher.add_handler(CommandHandler("search", search))
 
     # on message containing Wiki link - answer with article resume
     dispatcher.add_handler(MessageHandler(wiki_filter, reply_with_resume))
