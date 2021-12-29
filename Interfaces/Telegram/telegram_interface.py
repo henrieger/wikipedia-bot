@@ -51,10 +51,9 @@ def help_command(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(bot_messages.help_text, quote=False)
 
 def reply_with_resume(update: Update, context: CallbackContext) -> None:
-    bot_message = '\n<i>Beep boop, I\'m a bot. You can find my source code <a href="https://github.com/henrieger/wikipedia-bot">here</a>.</i>'
     wiki_link = wiki.get_wiki_article(update.message.text)
     wiki_content = wiki.api_query(wiki_link)
-    update.message.reply_html(wiki.format_response(wiki_content, type='html', domain=wiki_link)+bot_message,
+    update.message.reply_html(wiki.format_response(wiki_content, type='html', domain=wiki_link)+bot_messages.im_a_bot_html,
     disable_web_page_preview=True)
 
 def search(update: Update, context: CallbackContext) -> None:
@@ -78,6 +77,7 @@ def search(update: Update, context: CallbackContext) -> None:
     link_html = bot_messages.link_html(wiki.link_by_id(wiki_id, lang=lang))
     if link_html != '':
         final_message += '\n'+link_html
+    final_message += bot_messages.im_a_bot_html
 
     update.message.reply_html(final_message, disable_web_page_preview=True)
 
