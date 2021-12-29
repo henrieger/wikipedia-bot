@@ -69,7 +69,7 @@ def search(update: Update, context: CallbackContext) -> None:
         message_text = message_text.replace(language, '')
 
     # Get content based on pageid search result
-    wiki_id = wiki.search_result(message_text.replace('/search ', ''), lang=lang)
+    wiki_id = wiki.search_result(re.sub(r'\/search\@?\w* ', '', message_text), lang=lang)
     wiki_content = wiki.api_query_id(wiki_id, lang=lang)
 
     # Generate final message
