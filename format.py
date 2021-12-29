@@ -5,9 +5,11 @@ def to_html(title: str, content: str):
     # Remove unusable tags
     new_content = re.sub(r'\<\/?p\>', '', content)
     new_content = re.sub(r'\<\/?dfn.*?\>', '', new_content)
+    new_content = re.sub(r'\<\/?img.*?\>', '', new_content)
     new_content = re.sub(r'\<\/?span.*?\>', '', new_content)
     new_content = re.sub(r'\<\/?small.*?\>', '', new_content)
     new_content = re.sub(r'\<\/?abbr.*?\>', '', new_content)
+    new_content = new_content.replace('<br/>', '')
 
     # Remove <sub></sub> and <sup></sup>tags
     new_content = re.sub(r'\<sup.*?\>.*?\<\/sup\>', '', new_content)

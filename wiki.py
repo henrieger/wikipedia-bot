@@ -75,8 +75,13 @@ def format_response(response: Response, type='text', domain=''):
         content_html = query['text']
 
         # Isolate first paragraph   
-        content = BeautifulSoup(content_html, 'html.parser')
-        first_p = str(content.find_all('p', attrs={'class': None})[0])
+        content = BeautifulSoup(content_html, 'html.parser').find('div', attrs={'class': 'mw-parser-output'})
+        first_p = str(content.find('p', recursive=False, attrs={'class': None}))
+
+        # Remove all instances of audio previews
+        audio_tags = content.find_all("span", attrs={"class": "unicode haudio"})
+        for audio in audio_tags:
+            first_p = first_p.replace('('+str(audio)+')', '')
 
         # Change all instances of href to valid ones
         for href in re.findall(r'href\=\".+?\"[\ \>]', first_p):
