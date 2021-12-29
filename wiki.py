@@ -105,10 +105,24 @@ def search_result(word: str, lang='en') -> str:
     api_request = f"https://{lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch={word}&utf8=&format=json"
     api_response = requests.get(api_request)
 
-    return get_page_id(api_response)
+    return get_page_id(api_response, lang=lang)
+
+# Return true if article is disambiguation page
+def is_disambiguation(page_id: int, lang='en') -> bool:
+    api_request = f"https://{lang}.wikipedia.org/w/api.php?action=query&prop=pageprops&ppprop=disambiguation&redirects&pageids={page_id}&format=json"
+    api_response = requests.get(api_request).json()
+
+    page_info = api_response['query']['pages'][str(page_id)]
+    if 'pageprops' in page_info:
+        print('disambiguation' in page_info['pageprops'])
+        return 'disambiguation' in page_info['pageprops']
+    return False
 
 # Return first pageid of search query
-def get_page_id(response: Response) -> str :
+def get_page_id(response: Response, lang='en') -> str :
     if response.status_code == 200:
-        return response.json()['query']['search'][0]['pageid']
+        pages = response.json()['query']['search']
+        if is_disambiguation(pages[0]['pageid'], lang=lang):
+            return pages[1]['pageid']
+        return pages[0]['pageid']
     return None
