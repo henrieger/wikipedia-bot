@@ -98,10 +98,12 @@ def main() -> None:
     # on different commands - answer in Telegram
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(CommandHandler("help", help_command))
-    dispatcher.add_handler(CommandHandler("search", search))
 
     # on message containing Wiki link - answer with article resume
     dispatcher.add_handler(MessageHandler(wiki_filter, reply_with_resume))
+
+    # on search command - answer with article resume
+    dispatcher.add_handler(CommandHandler("search", search))
 
     # Start the Bot
     updater.start_polling()
