@@ -11,6 +11,9 @@ Other useful commands are:
 
 im_a_bot_html = '\n<i>Beep boop, I\'m a bot. You can find my source code <a href="https://github.com/henrieger/wikipedia-bot">here</a>.</i>'
 
+def not_found_in_lang_html(term: str, lang: str):
+    return f"Did not find any articles matching <b>'{term}'</b> for language <b>{lang}</b>. Trying to search in English..."
+
 not_found_text = "Sorry, I didn't find any articles matching your search. Try another word or check your spelling." 
 
 def link_html(link: str):

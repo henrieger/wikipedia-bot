@@ -69,10 +69,12 @@ def search(update: Update, context: CallbackContext) -> None:
         message_text = message_text.replace(language, '')
 
     # Get content based on pageid search result
-    wiki_id = wiki.search_result(re.sub(r'\/search\@?\w* ', '', message_text), lang=lang)
+    search_term = re.sub(r'\/search\@?\w* ', '', message_text)
+    wiki_id = wiki.search_result(search_term, lang=lang)
     if wiki_id == -1:
+        update.message.reply_html(bot_messages.not_found_in_lang_html(search_term, lang))
         lang = 'en'
-        wiki_id = wiki.search_result(re.sub(r'\/search\@?\w* ', '', message_text), lang=lang)
+        wiki_id = wiki.search_result(search_term, lang=lang)
         if wiki_id == -1:
             update.message.reply_html(bot_messages.not_found_text+'\n'+bot_messages.im_a_bot_html, disable_web_page_preview=True)
             return
