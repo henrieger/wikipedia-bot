@@ -70,6 +70,12 @@ def search(update: Update, context: CallbackContext) -> None:
 
     # Get content based on pageid search result
     wiki_id = wiki.search_result(re.sub(r'\/search\@?\w* ', '', message_text), lang=lang)
+    if wiki_id == -1:
+        lang = 'en'
+        wiki_id = wiki.search_result(re.sub(r'\/search\@?\w* ', '', message_text), lang=lang)
+        if wiki_id == -1:
+            update.message.reply_html(bot_messages.not_found_text+'\n'+bot_messages.im_a_bot_html, disable_web_page_preview=True)
+            return
     wiki_content = wiki.api_query_id(wiki_id, lang=lang)
 
     # Generate final message

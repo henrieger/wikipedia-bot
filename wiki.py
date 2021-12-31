@@ -105,6 +105,9 @@ def search_result(word: str, lang='en') -> str:
     api_request = f"https://{lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch={word}&utf8=&format=json"
     api_response = requests.get(api_request)
 
+    if api_response.json()['query']['searchinfo']['totalhits'] == 0:
+        return -1
+
     return get_page_id(api_response, lang=lang)
 
 # Return true if article is disambiguation page

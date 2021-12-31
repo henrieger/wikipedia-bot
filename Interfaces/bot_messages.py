@@ -11,5 +11,7 @@ Other useful commands are:
 
 im_a_bot_html = '\n<i>Beep boop, I\'m a bot. You can find my source code <a href="https://github.com/henrieger/wikipedia-bot">here</a>.</i>'
 
+not_found_text = "Sorry, I didn't find any articles matching your search. Try another word or check your spelling." 
+
 def link_html(link: str):
     return f"You can read the full article in: {link}." 
