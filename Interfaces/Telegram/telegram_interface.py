@@ -60,7 +60,7 @@ def search(update: Update, context: CallbackContext) -> None:
     message_text = update.message.text
 
     # Get first language in message and delete all occurencies
-    languages = re.findall(r'lang=[a-z]{2}', message_text)
+    languages = re.findall(r'lang=[a-z\-]*', message_text)
     if languages != []:
         lang = languages[0].split('lang=')[1]
     else:
