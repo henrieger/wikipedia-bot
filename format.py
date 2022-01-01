@@ -22,6 +22,30 @@ def to_text(title: str, content: str):
     new_content = re.sub(r'\<\/?.*?\>', '', new_content)
     return f"{title}\n\n{new_content}"
 
+# Format first pargraph to Markdown (no links)
+def to_simple_md(title: str, content: str):
+    title = '**' + title + '**'
+
+    # Remove <p></p>, <dfn></dfn>, <a></a> and <span></span> tags
+    new_content = re.sub(r'\<\/?p\>', '', content)
+    new_content = re.sub(r'\<\/?dfn.*?\>', '', new_content)
+    new_content = re.sub(r'\<\/?span.*?\>', '', new_content)
+    new_content = re.sub(r'\<a .*?\>', '', new_content)
+    new_content = new_content.replace('</a>', '')
+
+    # Remove <sub></sub> and <sup></sup>tags
+    new_content = re.sub(r'\<sup.*?\>.*?\<\/sup\>', '', new_content)
+    new_content = re.sub(r'\<sub.*?\>.*?\<\/sub\>', '', new_content)
+
+    # Escape '.' chars
+    new_content = new_content.replace('.', '\\.')
+
+    # Change bold and italic to Markdown format
+    new_content = re.sub(r'\<\/?i.*?\>', '*', new_content)
+    new_content = re.sub(r'\<\/?b.*?\>', '**', new_content)
+
+    return f"{title}\n\n{new_content}" 
+
 # Format first paragraph to Markdown
 def to_markdown(title: str, content: str):
     title = '**' + title + '**'

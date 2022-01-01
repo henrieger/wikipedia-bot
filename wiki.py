@@ -93,6 +93,8 @@ def format_response(response: Response, type='text', domain=''):
             return format.to_html(title, first_p)
         elif type.lower() == 'text':
             return format.to_text(title, first_p)
+        elif type.lower() == 'simple_md':
+            return format.to_simple_md(title, first_p)
         elif type.lower() == 'markdown':
             return format.to_markdown(title, first_p)
         else:
