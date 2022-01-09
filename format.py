@@ -29,6 +29,7 @@ def to_simple_md(title: str, content: str):
     # Remove <p></p>, <dfn></dfn>, <a></a> and <span></span> tags
     new_content = re.sub(r'\<\/?p\>', '', content)
     new_content = re.sub(r'\<\/?dfn.*?\>', '', new_content)
+    new_content = re.sub(r'\<\/?small.*?\>', '', new_content)
     new_content = re.sub(r'\<\/?span.*?\>', '', new_content)
     new_content = re.sub(r'\<a .*?\>', '', new_content)
     new_content = new_content.replace('</a>', '')
