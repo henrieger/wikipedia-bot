@@ -40,7 +40,8 @@ async def on_ready():
 
 # Start command
 async def start(ctx):
-    await ctx.channel.send("Hi, " + ctx.author.mention + '\n\n' + bot_messages.start_md)
+    user = ctx.author.mention
+    await ctx.channel.send(f"Hi, {user}\n\n{bot_messages.start_md}")
 
 # Help command
 async def help(ctx):
