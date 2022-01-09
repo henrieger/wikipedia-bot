@@ -50,11 +50,13 @@ def help_command(update: Update, context: CallbackContext) -> None:
     # Send a message when the command /help is issued.
     update.message.reply_text(bot_messages.help_text, quote=False)
 
+
 def reply_with_resume(update: Update, context: CallbackContext) -> None:
     wiki_link = wiki.get_wiki_article(update.message.text)
     wiki_content = wiki.api_query(wiki_link)
     update.message.reply_html(wiki.format_response(wiki_content, type='html', domain=wiki_link)+bot_messages.im_a_bot_html,
     disable_web_page_preview=True)
+
 
 def search(update: Update, context: CallbackContext) -> None:
     message_text = update.message.text
@@ -67,6 +69,11 @@ def search(update: Update, context: CallbackContext) -> None:
         lang = update.effective_user.language_code.split('-')[0]
     for language in languages:
         message_text = message_text.replace(language, '')
+
+    # Inform that command needs at least one valid parameter
+    if re.match(r'^/search\@?\w*[ ]*$', message_text):
+        update.message.reply_html(bot_messages.invalid_search_text+'\n'+bot_messages.im_a_bot_html, disable_web_page_preview=True)
+        return
 
     # Get content based on pageid search result
     search_term = re.sub(r'\/search\@?\w* ', '', message_text)
@@ -98,6 +105,7 @@ def search(update: Update, context: CallbackContext) -> None:
     final_message += bot_messages.im_a_bot_html
 
     update.message.reply_html(final_message, disable_web_page_preview=True)
+
 
 def main() -> None:
     # Start the bot

@@ -31,6 +31,7 @@ def not_found_in_lang_md(term: str, lang: str):
 not_found_text = "Sorry, I didn't find any articles matching your search. Try another word or check your spelling." 
 
 invalid_search_md = "Command `/search` expects a valid search term."
+invalid_search_text = "Command /search expects a valid search term."
 
 def link_html(link: str) -> str:
     return f"You can read the full article in: {link}."
