@@ -1,6 +1,14 @@
 # Username definitions
+from discord.ext import commands
+
+
 telegram_user = '@henrieger'
 
+
+# --- Messages that should be displayed with invalid commands ---
+# Discord (Markdown)
+def invalid_command_md(command: str, prefix: str) -> str:
+    return f"Command `{command.split(' ')[0]}` does not exist. Type `{prefix}help` for a list of valid commands."
 
 # --- Messages that should be displayed with /start ---
 # Telegram (HTML)

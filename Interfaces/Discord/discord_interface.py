@@ -5,6 +5,9 @@ import sys
 import inspect
 import logging
 import re
+import discord
+
+from dotenv import load_dotenv
 
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 interfacesdir = os.path.dirname(currentdir)
@@ -16,17 +19,14 @@ import bot_messages
 sys.path.insert(0, maindir) 
 import wiki
 
-from dotenv import load_dotenv
-from discord.ext import commands
-
 # Setting up error logs
 logging.basicConfig(level=logging.INFO)
 
 # Prefix for bot commands
-prefix = '$'
+prefix = '/'
 
 # Creating bot object
-bot = commands.Bot(command_prefix='/', help_command=None)
+bot = discord.Client()
 
 # Set owner in string to bot owner
 # bot_messages.discord_user = bot.owner_id
@@ -39,18 +39,15 @@ async def on_ready():
 # --Commands--
 
 # Start command
-@bot.command()
 async def start(ctx):
     await ctx.send(bot_messages.start_md)
 
 # Help command
-@bot.command()
 async def help(ctx):
     await ctx.send(bot_messages.help_md)
 
 # Search command
-@bot.command()
-async def search(ctx, *, message_text):
+async def search(ctx, message_text):
     # Get first language in message and delete all occurencies
     lang = 'en'
     languages = re.findall(r'lang=[a-z\-]*', message_text)
@@ -94,27 +91,36 @@ async def search(ctx, *, message_text):
 
     await ctx.send(final_message)
 
-# Error handler for 'search'
-@search.error
-async def search_error(ctx, error):
-    # Inform that command needs at least one valid parameter
-    if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send(bot_messages.invalid_search_md)
-
 # Message events
-# @bot.event
-# async def on_message(message):
-#     # Filter off messages from the bot itself
-#     if message.author == bot.user:
-#         return
+@bot.event
+async def on_message(message):
+    # Filter off messages from the bot itself
+    if message.author == bot.user:
+        return
 
-#     print(message.content)
+    # Reply Wikipedia links with article previews
+    if wiki.has_wiki_article(message.content):
+        wiki_link = wiki.get_wiki_article(message.content)
+        wiki_content = wiki.api_query(wiki_link)
+        await message.channel.send(wiki.format_response(wiki_content, type='text', domain=wiki_link))
 
-#     # Reply Wikipedia links with article previews
-#     if wiki.has_wiki_article(message.content):
-#         wiki_link = wiki.get_wiki_article(message.content)
-#         wiki_content = wiki.api_query(wiki_link)
-#         await message.channel.send(wiki.format_response(wiki_content, type='text', domain=wiki_link))
+    # --- Bot commands ---
+
+    # start
+    elif message.content == prefix+'start':
+        await start(message.channel)
+    
+    # help
+    elif message.content == prefix+'help':
+        await help(message.channel)
+
+    # search
+    elif message.content.startswith(prefix+'search'):
+        await search(message.channel, message.content.split('/search')[1])
+
+    # Unknown commands
+    elif message.content.startswith(prefix):
+        await message.channel.send(bot_messages.invalid_command_md(message.content, prefix))
 
 # Run the bot
 load_dotenv()
