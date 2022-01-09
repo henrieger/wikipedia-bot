@@ -42,7 +42,7 @@ def start(update: Update, context: CallbackContext) -> None:
     update.message.reply_html(
         fr"""Hi, {user.mention_html()}
         
-{bot_messages.start_html}""",
+{bot_messages.start_text}""",
     disable_web_page_preview=True, quote=False)
 
 
