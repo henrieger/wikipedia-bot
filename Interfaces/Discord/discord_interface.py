@@ -67,6 +67,14 @@ async def search(ctx, *, message_text):
     # Get content based on pageid search result
     search_term = re.sub(r'\/search\@?\w* ', '', message_text)
     wiki_id = wiki.search_result(search_term, lang=lang)
+
+    # Check for valid domain
+    if wiki_id == -2:
+        await ctx.send(bot_messages.domain_not_found(lang+'.wikipedia.org'))
+        lang='en'
+        wiki_id = wiki.search_result(search_term, lang=lang)
+
+    # Check for valid results and switch to English if none found
     if wiki_id == -1 and lang != 'en':
         await ctx.send(bot_messages.not_found_in_lang_md(search_term, lang))
         lang = 'en'
@@ -74,6 +82,8 @@ async def search(ctx, *, message_text):
     if wiki_id == -1:
         await ctx.send(bot_messages.not_found_text)
         return
+        
+    # Search content based on returned pageid
     wiki_content = wiki.api_query_id(wiki_id, lang=lang)
 
     # Generate final message

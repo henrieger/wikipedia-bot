@@ -33,4 +33,7 @@ not_found_text = "Sorry, I didn't find any articles matching your search. Try an
 invalid_search_md = "Command `/search` expects a valid search term."
 
 def link_html(link: str) -> str:
-    return f"You can read the full article in: {link}." 
+    return f"You can read the full article in: {link}."
+
+def domain_not_found(domain: str) -> str:
+    return f"Domain {domain} was not found. Trying to search in English..."

@@ -105,7 +105,10 @@ def format_response(response: Response, type='text', domain=''):
 # Return first pageid of search in Wikipedia database
 def search_result(word: str, lang='en') -> str:
     api_request = f"https://{lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch={word}&utf8=&format=json"
-    api_response = requests.get(api_request)
+    try:    
+        api_response = requests.get(api_request)
+    except requests.exceptions.ConnectionError:
+        return -2
 
     if api_response.json()['query']['searchinfo']['totalhits'] == 0:
         return -1
