@@ -40,11 +40,11 @@ async def on_ready():
 
 # Start command
 async def start(ctx):
-    await ctx.send(bot_messages.start_md)
+    await ctx.channel.send("Hi"+ctx.user+bot_messages.start_md)
 
 # Help command
 async def help(ctx):
-    await ctx.send(bot_messages.help_md)
+    await ctx.channel.send(bot_messages.help_md)
 
 # Search command
 async def search(ctx, message_text):
@@ -58,7 +58,7 @@ async def search(ctx, message_text):
 
     # Inform that command needs at least one valid parameter
     if re.match(r'^[ ]*$', message_text):
-        await ctx.send(bot_messages.invalid_search_md)
+        await ctx.channel.send(bot_messages.invalid_search_md)
         return
 
     # Get content based on pageid search result
@@ -67,17 +67,17 @@ async def search(ctx, message_text):
 
     # Check for valid domain
     if wiki_id == -2:
-        await ctx.send(bot_messages.domain_not_found(lang+'.wikipedia.org'))
+        await ctx.channel.send(bot_messages.domain_not_found(lang+'.wikipedia.org'))
         lang='en'
         wiki_id = wiki.search_result(search_term, lang=lang)
 
     # Check for valid results and switch to English if none found
     if wiki_id == -1 and lang != 'en':
-        await ctx.send(bot_messages.not_found_in_lang_md(search_term, lang))
+        await ctx.channel.send(bot_messages.not_found_in_lang_md(search_term, lang))
         lang = 'en'
         wiki_id = wiki.search_result(search_term, lang=lang)
     if wiki_id == -1:
-        await ctx.send(bot_messages.not_found_text)
+        await ctx.channel.send(bot_messages.not_found_text)
         return
 
     # Search content based on returned pageid
@@ -89,7 +89,7 @@ async def search(ctx, message_text):
     if link_text != '':
         final_message += '\n'+link_text
 
-    await ctx.send(final_message)
+    await ctx.channel.send(final_message)
 
 # Message events
 @bot.event
@@ -108,15 +108,15 @@ async def on_message(message):
 
     # start
     elif message.content == prefix+'start':
-        await start(message.channel)
+        await start(message)
     
     # help
     elif message.content == prefix+'help':
-        await help(message.channel)
+        await help(message)
 
     # search
     elif message.content.startswith(prefix+'search'):
-        await search(message.channel, message.content.split('/search')[1])
+        await search(message, message.content.split('/search')[1])
 
     # Unknown commands
     elif message.content.startswith(prefix):
