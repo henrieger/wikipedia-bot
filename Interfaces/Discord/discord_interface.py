@@ -82,15 +82,15 @@ async def search(ctx, *, message_text):
     if wiki_id == -1:
         await ctx.send(bot_messages.not_found_text)
         return
-        
+
     # Search content based on returned pageid
     wiki_content = wiki.api_query_id(wiki_id, lang=lang)
 
     # Generate final message
     final_message = wiki.format_response(wiki_content, type='simple_md', domain=lang+'.wikipedia.org')
-    link_html = bot_messages.link_html(wiki.link_by_id(wiki_id, lang=lang))
-    if link_html != '':
-        final_message += '\n'+link_html
+    link_text = bot_messages.link_text(wiki.link_by_id(wiki_id, lang=lang))
+    if link_text != '':
+        final_message += '\n'+link_text
 
     await ctx.send(final_message)
 

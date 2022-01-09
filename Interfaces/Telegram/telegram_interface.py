@@ -81,7 +81,7 @@ def search(update: Update, context: CallbackContext) -> None:
 
     # Check for valid domain
     if wiki_id == -2:
-        update.message.reply_html(bot_messages.domain_not_found(lang+'.wikipedia.org'))
+        update.message.reply_html(bot_messages.domain_not_found(lang+'.wikipedia.org'), disable_web_page_preview=True)
         lang = 'en'
         wiki_id = wiki.search_result(search_term, lang=lang)
 
@@ -99,9 +99,9 @@ def search(update: Update, context: CallbackContext) -> None:
 
     # Generate final message
     final_message = wiki.format_response(wiki_content, type='html', domain=lang+'.wikipedia.org')
-    link_html = bot_messages.link_html(wiki.link_by_id(wiki_id, lang=lang))
-    if link_html != '':
-        final_message += '\n'+link_html
+    link_text = bot_messages.link_text(wiki.link_by_id(wiki_id, lang=lang))
+    if link_text != '':
+        final_message += '\n'+link_text
     final_message += bot_messages.im_a_bot_html
 
     update.message.reply_html(final_message, disable_web_page_preview=True)
