@@ -4,10 +4,6 @@ import format
 from requests.models import Response
 from bs4 import BeautifulSoup
 
-# Return first paragraph of the Wiki article
-def resume(article_link: str):
-    pass
-
 # Check if link is a Wiki article
 def is_wiki_article(link: str):
     # Define all possible regexes
