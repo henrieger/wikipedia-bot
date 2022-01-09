@@ -11,12 +11,12 @@ def invalid_command_md(command: str, prefix: str) -> str:
     return f"Command `{command.split(' ')[0]}` does not exist. Type `{prefix}help` for a list of valid commands."
 
 # --- Messages that should be displayed with /start ---
-# Telegram (HTML)
-start_html ="""I'm the Wikipedia Bot. Send me a message with a link to a Wikipedia article or '/search {term}' and I'll give you the first paragraph of the article. You can also add me to a group and I'll answer any message like that in there too.
+# Telegram (raw text)
+start_text ="""I'm the Wikipedia Bot. Send me a message with a link to a Wikipedia article or '/search {term}' and I'll give you the first paragraph of the article. You can also add me to a group and I'll answer any message like that in there too.
 
 <i>This bot was made by {telegram_user}. You can find the source code <a href="https://github.com/henrieger/wikipedia-bot">here</a>.</i>"""
-# Discord (raw text)
-start_text ="""I'm the Wikipedia Bot. Send me a message with a link to a Wikipedia article or `/search {term}` and I'll give you the first paragraph of the article. You can also add me to a server and I'll answer any message like that in there too."""
+# Discord (Markdown)
+start_md ="""I'm the Wikipedia Bot. Send me a message with a link to a Wikipedia article or `/search {term}` and I'll give you the first paragraph of the article. You can also add me to a server and I'll answer any message like that in there too."""
 
 
 # --- Messages that should be displayed with /help ---
