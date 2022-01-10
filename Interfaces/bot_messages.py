@@ -1,6 +1,4 @@
 # Username definitions
-from discord.ext import commands
-
 
 telegram_user = '@henrieger'
 
