@@ -403,7 +403,7 @@ Returns first non-disambiguation page ID present in `response` content, or `None
 
 This is where the formats used by [`wiki.format_response()`](#formatresponse) are defined. All of them receive a string of what is supposed to be the contents of a `<p>` tag of an HTML page, simplifies and converts them to the specified format. Other formats might be added in the future.
 
-> **Consts and functions**
+> **Consts and functions:**
 > 1. [`to_html()`](#tohtml)
 > 2. [`to_text()`](#totext)
 > 3. [`to_simple_md()`](#tosimplemd)
