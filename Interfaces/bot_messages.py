@@ -14,7 +14,7 @@ def invalid_command_md(command: str, prefix: str) -> str:
 # Telegram (raw text)
 start_text ="""I'm the Wikipedia Bot. Send me a message with a link to a Wikipedia article or '/search {term}' and I'll give you the first paragraph of the article. You can also add me to a group and I'll answer any message like that in there too.
 
-<i>This bot was made by {telegram_user}. You can find the source code <a href="https://github.com/henrieger/wikipedia-bot">here</a>.</i>"""
+<i>This bot was made by """+telegram_user+""". You can find the source code <a href="https://github.com/henrieger/wikipedia-bot">here</a>.</i>"""
 # Discord (Markdown)
 start_md ="""I'm the Wikipedia Bot. Send me a message with a link to a Wikipedia article or `/search {term}` and I'll give you the first paragraph of the article. You can also add me to a server and I'll answer any message like that in there too."""
 
