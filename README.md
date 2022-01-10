@@ -8,7 +8,7 @@ Feel free to send a pull request and add an interface to another app! You can fi
 
 Because of quirks of each messager app, the bot may work a little differently in each platform. For instance, in Telegram, the bot searches in the user language by default, while in Discord it searches in English, as the app does not provide the needed information. You can find more information in each [interface documentation](#interfaces).
 
-This bot is freely inspired in the WikiSummarizerBot from Reddit, made by [Sujal-7](https://github.com/Sujal-7/). You can find its source code [here](https://github.com/Sujal-7/WikiSummarizerBot).
+This bot is freely inspired in the [WikiSummarizerBot](https://reddit.com/u/WikiSummarizerBot) from Reddit, made by [Sujal-7](https://github.com/Sujal-7/). You can find its source code [here](https://github.com/Sujal-7/WikiSummarizerBot).
 
 This software is free and licensed by the [MIT License](https://opensource.org/licenses/MIT). You can find the license in [`LICENSE.txt`](./LICENSE.txt)
 
