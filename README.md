@@ -442,12 +442,13 @@ This is where all messages for use in the bot intefaces, in any format, are defi
 > 6. [`help_md`](#help_md)
 > 7. [`invalid_search_text`](#invalidsearchtext)
 > 8. [`invalid_search_md`](#invalidsearchmd)
-> 9. [`not_found_text`](#notfoundtext)
-> 10. [`not_found_in_lang_html()`](#notfoundinlanghtml)
-> 11. [`not_found_in_lang_md()`](#notfoundinlangmd)
-> 12. [`domain_not_found()`](#domainnotfound)
-> 13. [`link_text()`](#linktext)
-> 14. [`invalid_command_md()`](#invalidcommandmd)
+> 8. [`error_text`](#errortext)
+> 10. [`not_found_text`](#notfoundtext)
+> 11. [`not_found_in_lang_html()`](#notfoundinlanghtml)
+> 12. [`not_found_in_lang_md()`](#notfoundinlangmd)
+> 13. [`domain_not_found()`](#domainnotfound)
+> 14. [`link_text()`](#linktext)
+> 15. [`invalid_command_md()`](#invalidcommandmd)
 
 #### **`telegram_user`**
 It's the *@* of the person who created the bot. In this example, it is *@henrieger* - AKA me :).
@@ -472,6 +473,9 @@ Text version of the message to be displayed by the bot when no term is given wit
 
 #### **`invalid_search_md`**
 Markdown version of the message to be displayed by the bot when no term is given with the `search` command.
+
+#### **`error_text`**
+Text message to be displayed by the bot when there is an unknown error when trying to send the message in the app. 
 
 #### **`not_found_text`**
 Text to be displayed by the bot when `search` command has no valid result in English (as it is the fallback language for any other `lang` parameter).

@@ -8,6 +8,9 @@ telegram_user = '@henrieger'
 def invalid_command_md(command: str, prefix: str) -> str:
     return f"Command `{command.split(' ')[0]}` does not exist. Type `{prefix}help` for a list of valid commands."
 
+# --- Messages that should be displayed with errors in sending message ---
+error_text = "I'm sorry, an unexpected error occured with this command. Try again later."
+
 # --- Messages that should be displayed with /start ---
 # Telegram (raw text)
 start_text ="""I'm the Wikipedia Bot. Send me a message with a link to a Wikipedia article or '/search {term}' and I'll give you the first paragraph of the article. You can also add me to a group and I'll answer any message like that in there too.

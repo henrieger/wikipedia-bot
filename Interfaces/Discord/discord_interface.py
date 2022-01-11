@@ -89,7 +89,10 @@ async def search(ctx, message_text):
     if link_text != '':
         final_message += '\n'+link_text
 
-    await ctx.channel.send(final_message)
+    try:
+        await ctx.channel.send(final_message)
+    except:
+        await ctx.channel.send(bot_messages.error_text)
 
 # Message events
 @bot.event
@@ -102,7 +105,10 @@ async def on_message(message):
     if wiki.has_wiki_article(message.content):
         wiki_link = wiki.get_wiki_article(message.content)
         wiki_content = wiki.api_query(wiki_link)
-        await message.channel.send(wiki.format_response(wiki_content, type='text', domain=wiki_link))
+        try:
+            await message.channel.send(wiki.format_response(wiki_content, type='simple_md', domain=wiki_link))
+        except:
+            await message.channel.send(bot_messages.error_text)
 
     # --- Bot commands ---
 
