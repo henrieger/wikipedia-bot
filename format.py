@@ -19,6 +19,7 @@ def to_html(title: str, content: str):
 # Format first paragraph to plain text
 def to_text(title: str, content: str):
     new_content = re.sub(r'\<sup .*?\>.*?\<\/sup\>', '', content)
+    new_content = re.sub(r'\<sub .*?\>.*?\<\/sub\>', '', content)
     new_content = re.sub(r'\<\/?.*?\>', '', new_content)
     return f"{title}\n\n{new_content}"
 
