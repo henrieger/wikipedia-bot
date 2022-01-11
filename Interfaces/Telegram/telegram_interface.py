@@ -54,8 +54,11 @@ def help_command(update: Update, context: CallbackContext) -> None:
 def reply_with_resume(update: Update, context: CallbackContext) -> None:
     wiki_link = wiki.get_wiki_article(update.message.text)
     wiki_content = wiki.api_query(wiki_link)
-    update.message.reply_html(wiki.format_response(wiki_content, type='html', domain=wiki_link)+bot_messages.im_a_bot_html,
-    disable_web_page_preview=True)
+    try:
+        update.message.reply_html(wiki.format_response(wiki_content, type='html', domain=wiki_link)+bot_messages.im_a_bot_html,
+        disable_web_page_preview=True)
+    except:
+        update.message.reply_html(bot_messages.error_text+'\n'+bot_messages.im_a_bot_html, disable_web_page_preview=True)
 
 
 def search(update: Update, context: CallbackContext) -> None:
@@ -104,7 +107,10 @@ def search(update: Update, context: CallbackContext) -> None:
         final_message += '\n'+link_text
     final_message += bot_messages.im_a_bot_html
 
-    update.message.reply_html(final_message, disable_web_page_preview=True)
+    try:
+        update.message.reply_html(final_message, disable_web_page_preview=True)
+    except:
+        update.message.reply_html(bot_messages.error_text+'\n'+bot_messages.im_a_bot_html, disable_web_page_preview=True)
 
 
 def main() -> None:
