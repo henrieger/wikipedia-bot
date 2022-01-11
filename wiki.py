@@ -80,7 +80,7 @@ def format_response(response: Response, type='text', domain=''):
             first_p = first_p.replace('('+str(audio)+')', '')
 
         # Change all instances of href to valid ones
-        for href in re.findall(r'href\=\".+?\"[\ \>]', first_p):
+        for href in re.findall(r'href\=\"\/wiki\/.+?\"[\ ]?', first_p):
             new_href = f"""href="{domain}{href.split('"')[1]}" """
             first_p = first_p.replace(href, new_href)
 
