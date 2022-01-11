@@ -504,4 +504,4 @@ Markdown paragraph to be displayed by the bot when an unknown `command` is given
 ### **`test`**
 
 This file is different from all others. It is simply a script to test the features of the other files. As it happens with all good software project with good planning (like this one definitely was), it was abandoned quite early in development, although it has had its fair amount of use.
-If you are developing new features, it might be a useful way for you to test them in conjunction with other already developed functions. You can find all options it has by typing `./test help` or `python3 test help` in your terminal.
+If you are developing new features, it might be a useful way for you to test them in conjunction with other already developed functions. You can find all options it has by typing `./test.py help` or `python3 test.py help` in your terminal.
