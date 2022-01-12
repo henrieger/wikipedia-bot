@@ -23,7 +23,7 @@ import wiki
 logging.basicConfig(level=logging.INFO)
 
 # Prefix for bot commands
-prefix = '/'
+prefix = '.'
 
 # Creating bot object
 bot = discord.Client()
@@ -122,7 +122,7 @@ async def on_message(message):
 
     # search
     elif message.content.startswith(prefix+'search'):
-        await search(message, message.content.split('/search')[1])
+        await search(message, message.content.split(prefix+'search')[1])
 
     # Unknown commands
     elif message.content.startswith(prefix):
