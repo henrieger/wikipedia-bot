@@ -304,7 +304,7 @@ If no language is provided with a `lang` parameter with the `search` command, it
 
 Discord also has the possibility of changing the command prefix. Although in the moment it is not implemented, changing the prefix is a possible feature for this interface in the future.
 
-Currently, all commands in Discord begin with '`/`'.
+Currently, all commands in Discord begin with '`.`'.
 
 ### Telegram
 

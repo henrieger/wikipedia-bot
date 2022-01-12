@@ -17,7 +17,7 @@ start_text ="""I'm the Wikipedia Bot. Send me a message with a link to a Wikiped
 
 <i>This bot was made by """+telegram_user+""". You can find the source code <a href="https://github.com/henrieger/wikipedia-bot">here</a>.</i>"""
 # Discord (Markdown)
-start_md ="""I'm the Wikipedia Bot. Send me a message with a link to a Wikipedia article or `/search {term}` and I'll give you the first paragraph of the article. You can also add me to a server and I'll answer any message like that in there too."""
+start_md ="""I'm the Wikipedia Bot. Send me a message with a link to a Wikipedia article or `.search {term}` and I'll give you the first paragraph of the article. You can also add me to a server and I'll answer any message like that in there too."""
 
 
 # --- Messages that should be displayed with /help ---
@@ -32,14 +32,14 @@ Other useful commands are:
 help_md = """To use this bot, simply send a message in a group where I am with a link to a Wikipedia article and I'll reply with the first paragraph of the article.
 
 **Other useful commands are:**
-    `/search` - Search for term in Wikipedia. Usage - `/search {term} (lang={language})`
-    `/start` - Give a start message with relevant info of the bot.
-    `/help` - Reply with a message of how to use the bot."""
+    `.search` - Search for term in Wikipedia. Usage - `.search {term} (lang={language})`
+    `.start` - Give a start message with relevant info of the bot.
+    `.help` - Reply with a message of how to use the bot."""
 
 
 # --- Messages that should be displayed when no term is given in /search ---
 invalid_search_text = "Command /search expects a valid search term." # Telegram (raw text)
-invalid_search_md = "Command `/search` expects a valid search term." # Discord (Markdown)
+invalid_search_md = "Command `.search` expects a valid search term." # Discord (Markdown)
 
 
 # --- Messages that should be displayed when domain is invalid ---
