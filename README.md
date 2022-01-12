@@ -218,16 +218,19 @@ if link_text != '':
     final_message += '\n'+link_text
 ```
 
-Finally, we can use whatever built-in function your application has and reply with the `final_message` variable.
+Finally, we can use whatever built-in function your application has and reply with the `final_message` variable, warning the user for any unexpected errors.
 
 Example (Discord interface):
 ```Python
-await ctx.channel.send(final_message)
+try:
+    await ctx.channel.send(final_message)
+except:
+    await ctx.channel.send(bot_messages.error_text)
 ```
 
 #### **Link to Wikipedia article**
 
-The process is similar to the final two steps of the `search` command. Once we isolated the link with the function `wiki.get_wiki_article()`, we can get the content and format it to the platform by using `wiki.api_query` and `wiki.format_response()` respectively. Than, just use whatever built-in function your application has and reply with the content.
+The process is similar to the final two steps of the `search` command. Once we isolated the link with the function `wiki.get_wiki_article()`, we can get the content and format it to the platform by using `wiki.api_query` and `wiki.format_response()` respectively. Than, just use whatever built-in function your application has and reply with the content, warning the user for any unexpected errors.
 
 Example (Discord interface):
 ```Python
@@ -235,7 +238,10 @@ Example (Discord interface):
 if wiki.has_wiki_article(message.content):
     wiki_link = wiki.get_wiki_article(message.content)
     wiki_content = wiki.api_query(wiki_link)
-    await message.channel.send(wiki.format_response(wiki_content, type='text',domain=wiki_link))
+    try:
+        await message.channel.send(wiki.format_response(wiki_content, type='simple_md', domain=wiki_link))
+    except:
+        await message.channel.send(bot_messages.error_text)
 ```
 
 ### Register commands
